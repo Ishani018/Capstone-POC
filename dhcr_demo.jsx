@@ -517,9 +517,14 @@ const ClawHubMarketplace = ({ onInstallMalicious, standalone = false }) => {
   const handleCopy = (text) => { navigator.clipboard?.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 1500); };
 
   const SkillCard = ({ skill }) => (
-    <div onClick={() => setSelectedSkill(skill)} style={{ background: CH.card, border: `1px solid ${skill.malicious ? CH.redBorder : CH.cardBorder}`, borderRadius: 10, padding: "16px", cursor: "pointer", transition: "all 0.2s", position: "relative" }}
+    <div onClick={() => setSelectedSkill(skill)} style={{ background: CH.card, border: `1px solid ${skill.name === "solana-wallet-tracker" ? CH.amber : skill.malicious ? CH.redBorder : CH.cardBorder}`, borderRadius: 10, padding: "16px", cursor: "pointer", transition: "all 0.2s", position: "relative", boxShadow: skill.name === "solana-wallet-tracker" ? "0 0 16px rgba(251,191,36,0.15)" : "none" }}
       onMouseEnter={e => { e.currentTarget.style.borderColor = skill.malicious ? CH.red : CH.textFaint; e.currentTarget.style.transform = "translateY(-2px)"; }}
-      onMouseLeave={e => { e.currentTarget.style.borderColor = skill.malicious ? `rgba(231,76,60,0.3)` : CH.cardBorder; e.currentTarget.style.transform = "translateY(0)"; }}>
+      onMouseLeave={e => { e.currentTarget.style.borderColor = skill.name === "solana-wallet-tracker" ? CH.amber : skill.malicious ? `rgba(231,76,60,0.3)` : CH.cardBorder; e.currentTarget.style.transform = "translateY(0)"; }}>
+      {skill.name === "solana-wallet-tracker" && (
+        <span style={{ position: "absolute", top: -10, left: "50%", transform: "translateX(-50%)", fontSize: 10, padding: "2px 10px", borderRadius: 6, fontWeight: 700, fontFamily: sans, background: CH.amber, color: "#000", whiteSpace: "nowrap", animation: "pulse 2s ease-in-out infinite" }}>
+          ▶ Try this one
+        </span>
+      )}
       {(skill.trending || skill.isNew) && (
         <span style={{ position: "absolute", top: 8, right: 8, fontSize: 8, padding: "2px 6px", borderRadius: 4, fontWeight: 600, fontFamily: mono, background: skill.trending ? "rgba(251,191,36,0.15)" : "rgba(96,165,250,0.15)", color: skill.trending ? CH.amber : "#60A5FA", border: `1px solid ${skill.trending ? "rgba(251,191,36,0.3)" : "rgba(96,165,250,0.3)"}` }}>
           {skill.trending ? "Trending" : "New"}
@@ -690,6 +695,10 @@ const ClawHubMarketplace = ({ onInstallMalicious, standalone = false }) => {
             </div>
           </div>
           <div style={{ maxWidth: 1000, margin: "0 auto", padding: "16px 24px 32px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 14px", borderRadius: 8, background: "rgba(251,191,36,0.08)", border: "1px solid rgba(251,191,36,0.25)", marginBottom: 14 }}>
+              <span style={{ fontSize: 14 }}>👇</span>
+              <span style={{ fontSize: 12, color: CH.amber, fontFamily: sans }}>For the demo, click <strong>solana-wallet-tracker</strong> below and hit Install</span>
+            </div>
             <h3 style={{ fontSize: 16, fontWeight: 700, color: CH.text, fontFamily: sans, marginBottom: 12 }}>Popular skills</h3>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
               {CLAWHUB_SKILLS.slice(4).map(skill => <SkillCard key={skill.name} skill={skill} />)}
@@ -876,6 +885,14 @@ const OpenClawHomepage = () => {
           ))}
         </div>
         <div style={{ fontSize: 10, color: OC.textFaint, fontFamily: mono }}>OpenClaw v0.3.2 · MIT License · Made with 🦞</div>
+      </div>
+
+      {/* Demo hint — fixed bottom banner */}
+      <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 100, display: "flex", justifyContent: "center", padding: "12px 24px", background: "linear-gradient(to top, rgba(10,10,15,0.95), rgba(10,10,15,0.8))", backdropFilter: "blur(8px)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 20px", borderRadius: 10, background: "rgba(251,191,36,0.1)", border: "1px solid rgba(251,191,36,0.3)" }}>
+          <span style={{ fontSize: 16 }}>👉</span>
+          <span style={{ fontSize: 13, color: CH.amber, fontFamily: sans }}>Click <strong>ClawHub</strong> in the sidebar (or press <kbd style={{ padding: "2px 6px", borderRadius: 4, background: "rgba(255,255,255,0.1)", fontSize: 11, fontFamily: mono }}>→</kbd>) to continue the demo</span>
+        </div>
       </div>
     </div>
   );
@@ -1429,6 +1446,7 @@ export default function APDemo() {
         @keyframes termFadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
         @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulse { 0%,100% { opacity: 1; transform: translateX(-50%) scale(1); } 50% { opacity: 0.7; transform: translateX(-50%) scale(1.05); } }
         @keyframes shakePanel { 0% { transform: translateX(0); } 20% { transform: translateX(-3px); } 40% { transform: translateX(3px); } 60% { transform: translateX(-2px); } 80% { transform: translateX(1px); } 100% { transform: translateX(0); } }
         @keyframes installBar { 0% { width: 0%; } 30% { width: 45%; } 60% { width: 72%; } 85% { width: 90%; } 100% { width: 100%; } }
         * { box-sizing: border-box; margin: 0; padding: 0; }
