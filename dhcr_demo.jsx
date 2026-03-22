@@ -887,13 +887,6 @@ const OpenClawHomepage = () => {
         <div style={{ fontSize: 10, color: OC.textFaint, fontFamily: mono }}>OpenClaw v0.3.2 · MIT License · Made with 🦞</div>
       </div>
 
-      {/* Demo hint — fixed bottom banner */}
-      <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 100, display: "flex", justifyContent: "center", padding: "12px 24px", background: "linear-gradient(to top, rgba(10,10,15,0.95), rgba(10,10,15,0.8))", backdropFilter: "blur(8px)" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 20px", borderRadius: 10, background: "rgba(251,191,36,0.1)", border: "1px solid rgba(251,191,36,0.3)" }}>
-          <span style={{ fontSize: 16 }}>👉</span>
-          <span style={{ fontSize: 13, color: CH.amber, fontFamily: sans }}>Click <strong>ClawHub</strong> in the sidebar (or press <kbd style={{ padding: "2px 6px", borderRadius: 4, background: "rgba(255,255,255,0.1)", fontSize: 11, fontFamily: mono }}>→</kbd>) to continue the demo</span>
-        </div>
-      </div>
     </div>
   );
 };
@@ -1422,6 +1415,19 @@ export default function APDemo() {
                   <div style={{ fontSize: 8, color: T.textFaint, fontFamily: mono }}>{s.subtitle}</div>
                 </div>
               )}
+              {/* Demo hint — point at ClawHub when on OpenClaw step */}
+              {step === 0 && i === 1 && (
+                <div style={{
+                  position: "absolute", right: 40, top: "50%", transform: "translateY(-50%)",
+                  display: "flex", alignItems: "center", gap: 6,
+                  padding: "5px 12px", borderRadius: 8,
+                  background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.4)",
+                  whiteSpace: "nowrap", animation: "hintBounce 1.5s ease-in-out infinite",
+                }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: CH.amber, fontFamily: sans }}>Click here next</span>
+                  <span style={{ fontSize: 14 }}>→</span>
+                </div>
+              )}
             </button>
           ))}
 
@@ -1447,6 +1453,7 @@ export default function APDemo() {
         @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes pulse { 0%,100% { opacity: 1; transform: translateX(-50%) scale(1); } 50% { opacity: 0.7; transform: translateX(-50%) scale(1.05); } }
+        @keyframes hintBounce { 0%,100% { transform: translateY(-50%) translateX(0); } 50% { transform: translateY(-50%) translateX(-6px); } }
         @keyframes shakePanel { 0% { transform: translateX(0); } 20% { transform: translateX(-3px); } 40% { transform: translateX(3px); } 60% { transform: translateX(-2px); } 80% { transform: translateX(1px); } 100% { transform: translateX(0); } }
         @keyframes installBar { 0% { width: 0%; } 30% { width: 45%; } 60% { width: 72%; } 85% { width: 90%; } 100% { width: 100%; } }
         * { box-sizing: border-box; margin: 0; padding: 0; }
