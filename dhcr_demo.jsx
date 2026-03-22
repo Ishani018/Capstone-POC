@@ -47,6 +47,7 @@ const OC = {
 
 const mono = "'JetBrains Mono', monospace";
 const sans = "'DM Sans', sans-serif";
+const serif = "Georgia, 'Times New Roman', serif";
 
 /* ─── SCENARIO DATA ─────────────────────────────────────────────────── */
 
@@ -461,15 +462,27 @@ const TerminalSession = ({ events, title, onComplete, autoPlay = false }) => {
    CLAWHUB MARKETPLACE — Dark theme matching real clawhub.ai
    ═══════════════════════════════════════════════════════════════════════ */
 
-const LobsterIcon = ({ size = 20, color = CH.red }) => (
-  <svg width={size} height={size} viewBox="0 0 32 32" fill="none">
-    <path d="M16 4C10 4 6 8 6 14C6 18 8 20 10 22L8 28H12L14 24H18L20 28H24L22 22C24 20 26 18 26 14C26 8 22 4 16 4Z" fill={color} opacity="0.9"/>
-    <circle cx="12" cy="12" r="2" fill="#fff"/>
-    <circle cx="20" cy="12" r="2" fill="#fff"/>
-    <path d="M4 10C2 8 2 6 4 4" stroke={color} strokeWidth="2" strokeLinecap="round"/>
-    <path d="M28 10C30 8 30 6 28 4" stroke={color} strokeWidth="2" strokeLinecap="round"/>
-    <path d="M3 11C1 10 1 8 3 6" stroke={color} strokeWidth="2" strokeLinecap="round"/>
-    <path d="M29 11C31 10 31 8 29 6" stroke={color} strokeWidth="2" strokeLinecap="round"/>
+/* Real lobster logo — based on actual clawhub.ai/clawd-logo.png (Molty the lobster) */
+const LobsterIcon = ({ size = 20, color = "#E8472C" }) => (
+  <svg width={size} height={size} viewBox="0 0 64 64" fill="none">
+    {/* Antennae */}
+    <path d="M27 16C25 10 23 6 26 2" stroke={color} strokeWidth="2.5" strokeLinecap="round" fill="none" />
+    <path d="M37 16C39 10 41 6 38 2" stroke={color} strokeWidth="2.5" strokeLinecap="round" fill="none" />
+    {/* Round body */}
+    <ellipse cx="32" cy="34" rx="18" ry="17" fill={color} />
+    {/* Body gradient shading */}
+    <ellipse cx="30" cy="30" rx="12" ry="11" fill="rgba(255,255,255,0.08)" />
+    {/* Claws (small round bumps on sides) */}
+    <ellipse cx="12" cy="38" rx="5" ry="4.5" fill={color} />
+    <ellipse cx="52" cy="38" rx="5" ry="4.5" fill={color} />
+    {/* Eyes — teal/cyan like the PNG */}
+    <circle cx="27" cy="32" r="3.2" fill="#0D3D3D" />
+    <circle cx="37" cy="32" r="3.2" fill="#0D3D3D" />
+    <circle cx="27.8" cy="31" r="1.2" fill="#2CF5E8" />
+    <circle cx="37.8" cy="31" r="1.2" fill="#2CF5E8" />
+    {/* Legs */}
+    <rect x="26" y="50" width="3.5" height="8" rx="1.5" fill={color} />
+    <rect x="34.5" y="50" width="3.5" height="8" rx="1.5" fill={color} />
   </svg>
 );
 
@@ -901,8 +914,8 @@ const APOverview = () => (
     {/* Header */}
     <div style={{ textAlign: "center", padding: "24px 0 20px" }}>
       <div style={{ width: 48, height: 48, borderRadius: 10, background: `linear-gradient(135deg, ${T.accent}, ${T.green})`, display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 18, fontWeight: 800, marginBottom: 10 }}>AP</div>
-      <h2 style={{ fontSize: 26, fontWeight: 800, color: T.text, fontFamily: sans, margin: "0 0 6px" }}>The Agentic Parliament</h2>
-      <p style={{ fontSize: 13, color: T.textMuted, maxWidth: 560, margin: "0 auto", lineHeight: 1.5 }}>
+      <h2 style={{ fontSize: 28, fontWeight: 700, color: T.text, fontFamily: serif, margin: "0 0 6px", fontStyle: "italic" }}>The Agentic Parliament</h2>
+      <p style={{ fontSize: 13, color: T.textMuted, maxWidth: 560, margin: "0 auto", lineHeight: 1.5, fontFamily: serif }}>
         A Speaker routes each action to specialized Ministers via BGE v1.5 cosine similarity. Each Minister runs a syntactic tier, then a semantic tier. An append-only Ledger tracks all state.
       </p>
     </div>
@@ -911,13 +924,13 @@ const APOverview = () => (
     <div style={{ padding: "14px 20px", borderRadius: 10, background: T.accentDim, border: `1px solid rgba(124,107,240,0.25)`, marginBottom: 16, display: "flex", alignItems: "center", gap: 14 }}>
       <div style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(124,107,240,0.2)", border: `1.5px solid rgba(124,107,240,0.4)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, flexShrink: 0 }}>🏛</div>
       <div>
-        <div style={{ fontSize: 13, fontWeight: 700, color: T.accent, fontFamily: sans }}>Speaker (Orchestrator)</div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: T.accent, fontFamily: serif }}>Speaker (Orchestrator)</div>
         <div style={{ fontSize: 11, color: T.textMuted, fontFamily: mono, lineHeight: 1.5 }}>Embeds every agent action with BGE v1.5, computes cosine similarity against each Minister's domain. Routes to Ministers with score ≥ 0.45.</div>
       </div>
     </div>
 
     {/* 3 Ministers */}
-    <h3 style={{ fontSize: 14, fontWeight: 700, color: T.text, fontFamily: sans, marginBottom: 10 }}>Ministers</h3>
+    <h3 style={{ fontSize: 15, fontWeight: 700, color: T.text, fontFamily: serif, marginBottom: 10 }}>Ministers</h3>
     <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, marginBottom: 20 }}>
       {[
         {
@@ -940,7 +953,7 @@ const APOverview = () => (
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
             <span style={{ fontSize: 20 }}>{m.icon}</span>
             <div>
-              <div style={{ fontSize: 12, fontWeight: 700, color: T.text, fontFamily: sans }}>{m.name}</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: T.text, fontFamily: serif }}>{m.name}</div>
               <div style={{ fontSize: 9, color: T.textFaint, fontFamily: mono }}>{m.domain}</div>
             </div>
           </div>
@@ -957,7 +970,7 @@ const APOverview = () => (
     </div>
 
     {/* Ledger */}
-    <h3 style={{ fontSize: 14, fontWeight: 700, color: T.text, fontFamily: sans, marginBottom: 10 }}>The Ledger (Append-Only State)</h3>
+    <h3 style={{ fontSize: 15, fontWeight: 700, color: T.text, fontFamily: serif, marginBottom: 10 }}>The Ledger (Append-Only State)</h3>
     <div style={{ borderRadius: 10, border: `1px solid ${T.border}`, overflow: "hidden", marginBottom: 20 }}>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", background: T.surface, borderBottom: `1px solid ${T.border}` }}>
         <div style={{ padding: "6px 14px", fontSize: 10, fontWeight: 600, color: T.textFaint, fontFamily: mono }}>FIELD</div>
@@ -980,7 +993,7 @@ const APOverview = () => (
     </div>
 
     {/* Routing Rules */}
-    <h3 style={{ fontSize: 14, fontWeight: 700, color: T.text, fontFamily: sans, marginBottom: 10 }}>Routing Rules</h3>
+    <h3 style={{ fontSize: 15, fontWeight: 700, color: T.text, fontFamily: serif, marginBottom: 10 }}>Routing Rules</h3>
     <div style={{ borderRadius: 10, border: `1px solid ${T.border}`, overflow: "hidden", marginBottom: 20 }}>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr 0.8fr", background: T.surface, borderBottom: `1px solid ${T.border}` }}>
         <div style={{ padding: "6px 14px", fontSize: 10, fontWeight: 600, color: T.textFaint, fontFamily: mono }}>CONDITION</div>
@@ -1002,12 +1015,12 @@ const APOverview = () => (
 
     {/* Key Insight */}
     <div style={{ padding: "16px 20px", borderRadius: 10, background: T.accentDim, border: `1px solid rgba(124,107,240,0.25)`, borderLeft: `4px solid ${T.accent}` }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: T.accent, fontFamily: sans, marginBottom: 6 }}>Key Insight</div>
-      <div style={{ fontSize: 12, color: T.text, lineHeight: 1.7, fontFamily: mono }}>
-        OpenClaw asks: <span style={{ color: T.amber }}>"Is this action safe?"</span><br/>
-        The Parliament asks: <span style={{ color: T.green }}>"Does this sequence make sense together?"</span>
+      <div style={{ fontSize: 14, fontWeight: 700, color: T.accent, fontFamily: serif, marginBottom: 6 }}>Key Insight</div>
+      <div style={{ fontSize: 13, color: T.text, lineHeight: 1.7, fontFamily: serif }}>
+        OpenClaw asks: <span style={{ color: T.amber, fontFamily: mono }}>"Is this action safe?"</span><br/>
+        The Parliament asks: <span style={{ color: T.green, fontFamily: mono }}>"Does this sequence make sense together?"</span>
       </div>
-      <div style={{ fontSize: 11, color: T.textMuted, fontFamily: mono, marginTop: 6 }}>
+      <div style={{ fontSize: 11, color: T.textMuted, fontFamily: serif, marginTop: 6, fontStyle: "italic" }}>
         Block verdicts feed back to the Planner as context — the system learns from its own decisions within the session.
       </div>
     </div>
